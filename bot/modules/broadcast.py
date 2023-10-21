@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from time import time
 from uuid import uuid4
 from asyncio import sleep
@@ -67,10 +66,10 @@ async def broadcast(_, message):
             except:
                 u += 1
             t += 1
-        return await editMessage(temp_wait, f'''⌬  <b><i>Broadcast Deleted Stats :</i></b>
- <b>Total Users:</b> <code>{t}</code>
- <b>Success:</b> <code>{s}</code>
- <b>Unsuccess Attempt:</b> <code>{u}</code>
+        return await editMessage(temp_wait, f'''<b><i>Broadcast Deleted Stats :</i></b>
+<b>Total Users:</b> <code>{t}</code>
+<b>Success:</b> <code>{s}</code>
+<b>Unsuccess Attempt:</b> <code>{u}</code>
 
 <b>Broadcast ID:</b> <code>{bc_id}</code>''')
     elif edited:
@@ -85,22 +84,22 @@ async def broadcast(_, message):
             except FloodWait as e:
                 await sleep(e.value)
                 await msg.edit(text=rply.text, entities=rply.entities, reply_markup=rply.reply_markup)
-            except:
+            except Exception:
                 u += 1
             t += 1
-        return await editMessage(temp_wait, f'''⌬  <b><i>Broadcast Edited Stats :</i></b>
- <b>Total Users:</b> <code>{t}</code>
- <b>Success:</b> <code>{s}</code>
- <b>Unsuccess Attempt:</b> <code>{u}</code>
+        return await editMessage(temp_wait, f'''<b><i>Broadcast Edited Stats :</i></b>
+<b>Total Users:</b> <code>{t}</code>
+<b>Success:</b> <code>{s}</code>
+<b>Unsuccess Attempt:</b> <code>{u}</code>
 
 <b>Broadcast ID:</b> <code>{bc_id}</code>''')
     start_time = time()
-    status = '''⌬  <b><i>Broadcast Stats :</i></b>
- <b>Total Users:</b> <code>{t}</code>
- <b>Success:</b> <code>{s}</code>
- <b>Blocked Users:</b> <code>{b}</code>
- <b>Deleted Accounts:</b> <code>{d}</code>
- <b>Unsuccess Attempt:</b> <code>{u}</code>'''
+    status = '''<b><i>Broadcast Stats :</i></b>
+<b>Total Users:</b> <code>{t}</code>
+<b>Success:</b> <code>{s}</code>
+<b>Blocked Users:</b> <code>{b}</code>
+<b>Deleted Accounts:</b> <code>{d}</code>
+<b>Unsuccess Attempt:</b> <code>{u}</code>'''
     updater = time()
     bc_hash, bc_msgs = str(uuid4()), []
     pls_wait = await sendMessage(message, status.format(**locals()))
@@ -124,7 +123,7 @@ async def broadcast(_, message):
         except InputUserDeactivated:
             await DbManger().rm_pm_user(uid)
             d += 1
-        except:
+        except Exception:
             u += 1
         if bc_msg:
             bc_msgs.append(bc_msg)
@@ -133,7 +132,10 @@ async def broadcast(_, message):
             await editMessage(pls_wait, status.format(**locals()))
             updater = time()
     bc_cache[bc_hash] = bc_msgs
-    await editMessage(pls_wait, status.format(**locals()) + f"\n\n<b>Elapsed Time:</b> <code>{get_readable_time(time() - start_time)}</code>\n<b>Broadcast ID:</b> <code>{bc_hash}</code>")
+    await editMessage(
+        pls_wait,
+        f"{status.format(**locals())}\n\n<b>Elapsed Time:</b> <code>{get_readable_time(time() - start_time)}</code>\n<b>Broadcast ID:</b> <code>{bc_hash}</code>",
+    )
         
         
 bot.add_handler(MessageHandler(broadcast, filters=command(BotCommands.BroadcastCommand) & CustomFilters.sudo))
