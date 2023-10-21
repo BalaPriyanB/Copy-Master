@@ -87,11 +87,11 @@ Get from https://my.telegram.org</i>.
         user_code = await pyro_client.send_code(session_dict['PHONE_NO'])
         await sleep(1.5)
     except FloodWait as e:
-        return await editMessage(sess_msg, f"<b>Floodwait of {e.value} Seconds. Retry Again</b>\n\n ⌬ <b>Process Stopped.</b>")
+        return await editMessage(sess_msg, f"<b>Floodwait of {e.value} Seconds. Retry Again</b>\n\n <b>Process Stopped.</b>")
     except ApiIdInvalid:
-        return await editMessage(sess_msg, "<b>API_ID and API_HASH are Invalid. Retry Again</b>\n\n ⌬ <b>Process Stopped.</b>")
+        return await editMessage(sess_msg, "<b>API_ID and API_HASH are Invalid. Retry Again</b>\n\n <b>Process Stopped.</b>")
     except PhoneNumberInvalid:
-        return await editMessage(sess_msg, "<b>Phone Number is Invalid. Retry Again</b>\n\n ⌬ <b>Process Stopped.</b>")
+        return await editMessage(sess_msg, "<b>Phone Number is Invalid. Retry Again</b>\n\n <b>Process Stopped.</b>")
     await sleep(1.5)
     await editMessage(sess_msg, """<u><i><b>Pyrogram String Session Generator</b></i></u>
  
@@ -108,9 +108,9 @@ Get from https://my.telegram.org</i>.
     try:
         await pyro_client.sign_in(session_dict['PHONE_NO'], user_code.phone_code_hash, phone_code=otp)
     except PhoneCodeInvalid:
-        return await editMessage(sess_msg, "<i>Input OTP is Invalid.</i>\n\n ⌬ <b>Process Stopped.</b>")
+        return await editMessage(sess_msg, "<i>Input OTP is Invalid.</i>\n\n <b>Process Stopped.</b>")
     except PhoneCodeExpired:
-        return await editMessage(sess_msg, "<i> Input OTP has Expired.</i>\n\n ⌬ <b>Process Stopped.</b>")
+        return await editMessage(sess_msg, "<i> Input OTP has Expired.</i>\n\n <b>Process Stopped.</b>")
     except SessionPasswordNeeded:
         await sleep(1.5)
         await editMessage(sess_msg, f"""<u><i><b>Pyrogram String Session Generator</b></i></u>
@@ -154,7 +154,7 @@ async def set_details(_, message, newkey):
         session_dict[newkey] = value
     if value.lower() == '/stop':
         isStop = True
-        return await editMessage(session_dict['message'], '⌬ <b>Process Stopped</b>')
+        return await editMessage(session_dict['message'], '<b>Process Stopped</b>')
 
 
 @new_thread
@@ -166,7 +166,7 @@ async def invoke(client, message, key):
     while not bool(session_dict.get(key)):
         await sleep(0.5)
         if time() - start_time > 120:
-            await editMessage(message, "⌬ <b>Process Stopped</b>")
+            await editMessage(message, "<b>Process Stopped</b>")
             isStop = True
             break
     client.remove_handler(*handler)
