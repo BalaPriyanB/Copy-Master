@@ -146,5 +146,5 @@ async def inline_query(client, query):
         pass
 
 
-bot.add_handler(MessageHandler(bypass, filters=command(
+bot.add_handler(MessageHandler(bypass_check, filters=command(
     BotCommands.BypassCommand) & CustomFilters.authorized & ~CustomFilters.blacklisted))
