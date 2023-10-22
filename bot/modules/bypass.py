@@ -79,7 +79,6 @@ async def bypass_check(client, message):
         await wait_msg.delete()
 
 
-@Bypass.on_inline_query()
 async def inline_query(client, query):
     answers = [] 
     string = query.query.lower()
