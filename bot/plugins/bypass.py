@@ -6,26 +6,10 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 
-from FZBypass import Config, Bypass, BOT_START, LOGGER
-from FZBypass.core.bypass_checker import direct_link_checker, is_excep_link
-from FZBypass.core.bot_utils import chat_and_topics, convert_time
-from FZBypass.core.exceptions import DDLException
-
-
-@Bypass.on_message(command('start'))
-async def start_msg(client, message):
-    await message.reply(f'''<b><i>FZ Bypass Bot!</i></b>
-    
-    <i>A Powerful Elegant Multi Threaded Bot written in Python... which can Bypass Various Shortener Links, Scrape links, and More ... </i>
-    
-    <i><b>Bot Started {convert_time(time() - BOT_START)} ago...</b></i>
-
-🛃 <b>Use Me Here :</b> @CyberPunkGrp <i>(Bypass Topic)</i>''',
-        quote=True,
-        reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton('🎓 Dev', url='https://t.me/SilentDemonSD'), InlineKeyboardButton('🔍 Deploy Own', url="https://github.com/SilentDemonSD/FZBypassBot")]
-            ])
-    )
+from bot import Config_dict, Bypass, LOGGER
+from bot.core.bypass_checker import direct_link_checker, is_excep_link
+from bot.core.bot_utils import chat_and_topics, convert_time
+from bot.core.exceptions import DDLException
 
 
 @Bypass.on_message(command(['bypass', 'bp']) & (user(Config.OWNER_ID) | chat_and_topics))
@@ -97,11 +81,6 @@ async def bypass_check(client, message):
         await wait_msg.delete()
 
 
-@Bypass.on_message(command('log') & user(Config.OWNER_ID))
-async def send_logs(client, message):
-    await message.reply_document('log.txt', quote=True)
-
-
 @Bypass.on_inline_query()
 async def inline_query(client, query):
     answers = [] 
@@ -146,7 +125,7 @@ async def inline_query(client, query):
         answers.append(InlineQueryResultArticle(
                 title="♻️ Bypass Usage: In Line",
                 input_message_content=InputTextMessageContent(
-                    '''<b><i>FZ Bypass Bot!</i></b>
+                    '''<b><i>Bypass Bot!</i></b>
     
     <i>A Powerful Elegant Multi Threaded Bot written in Python... which can Bypass Various Shortener Links, Scrape links, and More ... </i>
     
@@ -154,7 +133,7 @@ async def inline_query(client, query):
                 ),
                 description="Bypass via !bp [link]",
                 reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton("FZ Channel", url="https://t.me/FXTorrentz"),
+                        [InlineKeyboardButton("FZ Channel", url="https://t.me/TomenBots"),
                         InlineKeyboardButton('Try Bypass', switch_inline_query_current_chat="!bp ")]
                 ])
             ))
