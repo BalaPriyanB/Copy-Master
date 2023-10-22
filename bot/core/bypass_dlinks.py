@@ -15,9 +15,9 @@ from lxml import etree
 from requests import Session
 from aiohttp import ClientSession 
 
-from FZBypass import LOGGER, Config
-from FZBypass.core.bot_utils import get_dl
-from FZBypass.core.exceptions import DDLException
+from bot import LOGGER, config_dict
+from bot.core.bot_utils import get_dl
+from bot.core.exceptions import DDLException
 
 
 async def filepress(url: str):
