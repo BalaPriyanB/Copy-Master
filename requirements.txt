@@ -6,9 +6,12 @@ apscheduler
 aria2p
 asyncio
 beautifulsoup4
+bs4
 cinemagoer
 cloudscraper
+cfscrape
 cryptography
+curl_cffi
 dnspython
 feedparser
 flask
@@ -40,5 +43,6 @@ telegraph
 tenacity
 tgcrypto
 uvloop
+urllib3==1.26
 xattr
 yt-dlp==2023.3.4
