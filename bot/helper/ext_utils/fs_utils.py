@@ -40,12 +40,12 @@ async def clean_target(path):
         if await aiopath.isdir(path):
             try:
                 await aiormtree(path)
-            except:
+            except Exception:
                 pass
         elif await aiopath.isfile(path):
             try:
                 await aioremove(path)
-            except:
+            except Exception:
                 pass
 
 
@@ -54,7 +54,7 @@ async def clean_download(path):
         LOGGER.info(f"Cleaning Download: {path}")
         try:
             await aiormtree(path)
-        except:
+        except Exception:
             pass
 
 
@@ -62,9 +62,9 @@ async def start_cleanup():
     get_client().torrents_delete(torrent_hashes="all")
     try:
         await aiormtree(DOWNLOAD_DIR)
-    except:
+    except Exception:
         pass
-    await makedirs(DOWNLOAD_DIR)
+    await makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 
 def clean_all():
@@ -72,7 +72,7 @@ def clean_all():
     get_client().torrents_delete(torrent_hashes="all")
     try:
         rmtree(DOWNLOAD_DIR)
-    except:
+    except Exception:
         pass
 
 
@@ -167,7 +167,10 @@ async def join_files(path):
                 LOGGER.error(f'Failed to join {final_name}, stderr: {stderr}')
             else:
                 results.append(final_name)
+        else:
+            LOGGER.warning('No Binary files to join!')
     if results:
+        LOGGER.info('Join Completed!')
         for res in results:
             for file_ in files:
                 if re_search(fr"{res}\.0[0-9]+$", file_):

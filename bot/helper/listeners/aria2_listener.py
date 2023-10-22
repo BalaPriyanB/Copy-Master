@@ -16,6 +16,8 @@ from bot.helper.themes import BotTheme
 @new_thread
 async def __onDownloadStarted(api, gid):
     download = await sync_to_async(api.get_download, gid)
+    if download.options.follow_torrent == 'false':
+        return
     if download.is_metadata:
         LOGGER.info(f'onDownloadStarted: {gid} METADATA')
         await sleep(1)
@@ -81,7 +83,7 @@ async def __onDownloadStarted(api, gid):
                 elif listener.extract:
                     try:
                         name = get_base_name(name)
-                    except:
+                    except Exception:
                         name = None
                 if name is not None:
                     telegraph_content, contents_no = await sync_to_async(GoogleDriveHelper().drive_list, name, True)
@@ -99,7 +101,9 @@ async def __onDownloadStarted(api, gid):
 async def __onDownloadComplete(api, gid):
     try:
         download = await sync_to_async(api.get_download, gid)
-    except:
+    except Exception:
+        return
+    if download.options.follow_torrent == 'false':
         return
     if download.followed_by_ids:
         new_gid = download.followed_by_ids[0]
@@ -133,6 +137,8 @@ async def __onBtDownloadComplete(api, gid):
     seed_start_time = time()
     await sleep(1)
     download = await sync_to_async(api.get_download, gid)
+    if download.options.follow_torrent == 'false':
+        return
     LOGGER.info(f"onBtDownloadComplete: {download.name} - Gid: {gid}")
     if dl := await getDownloadByGid(gid):
         listener = dl.listener()
@@ -143,7 +149,7 @@ async def __onBtDownloadComplete(api, gid):
                 if not file_o.selected and await aiopath.exists(f_path):
                     try:
                         await aioremove(f_path)
-                    except:
+                    except Exception:
                         pass
             await clean_unwanted(download.dir)
         if listener.seed:
@@ -193,9 +199,11 @@ async def __onDownloadError(api, gid):
     error = "None"
     try:
         download = await sync_to_async(api.get_download, gid)
+        if download.options.follow_torrent == 'false':
+            return
         error = download.error_message
         LOGGER.info(f"Download Error: {error}")
-    except:
+    except Exception:
         pass
     if dl := await getDownloadByGid(gid):
         listener = dl.listener()
