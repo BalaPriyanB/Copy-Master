@@ -5,8 +5,8 @@ from cloudscraper import create_scraper
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup, NavigableString, Tag
 
-from FZBypass import Config, LOGGER
-from FZBypass.core.bypass_ddl import transcript
+from bot import config_dict, LOGGER
+from bot.core.bypass_ddl import transcript
 
 
 async def sharespark(url: str) -> str:
@@ -88,8 +88,8 @@ async def cinevood(url: str) -> str:
     
     prsd = f"<b>🔖 Title:</b> {post_title}\n"
     for title, links in links_by_title.items():
-        prsd += f"\n┏<b>🏷️ Name:</b> <code>{title}</code>\n"
-        prsd += "┗<b>🔗 Links:</b> " + " | ".join(links) + "\n"
+        prsd += f"\n⇢<b>🏷️ Name:</b> <code>{title}</code>\n"
+        prsd += "⇢<b>🔗 Links:</b> " + " | ".join(links) + "\n"
 
     return prsd
 
@@ -107,13 +107,13 @@ async def kayoanime(url: str) -> str:
         prsd += f'''
 
 {n}. <i><b>{gd.string}</b></i>
-┗ <b>Links :</b> <a href='{link}'><b>{gd_txt}</b></a>'''
+⇢ <b>Links :</b> <a href='{link}'><b>{gd_txt}</b></a>'''
     return prsd
 
 
 async def toonworld4all(url: str):
     if "/redirect/main.php?url=" in url:
-        return f'┎ <b>Source Link:</b> {url}\n┃\n┖ <b>Bypass Link:</b> {rget(url).url}'
+        return f'⇢ <b>Source Link:</b> {url}\n┃\n⇢ <b>Bypass Link:</b> {rget(url).url}'
     xml = rget(url).text
     soup = BeautifulSoup(xml, 'html.parser')
     if '/episode/' not in url:
@@ -125,7 +125,7 @@ async def toonworld4all(url: str):
             prsd += f'''
         
 {n}. <i><b>{t.strong.string}</b></i>
-┖ <b>Link :</b> {l["href"]}'''
+⇢ <b>Link :</b> {l["href"]}'''
         return prsd
     links = soup.select('a[href*="/redirect/main.php?url="]')
     titles = soup.select('h5')
@@ -146,7 +146,7 @@ async def toonworld4all(url: str):
     lstd = [com_tasks[i:i+slicer] for i in range(0, len(com_tasks), slicer)]
 
     for no, tl in enumerate(titles):
-        prsd += f"\n\n<b>{tl.string}</b>\n┃\n┖ <b>Links :</b> "
+        prsd += f"\n\n<b>{tl.string}</b>\n┃\n⇢ <b>Links :</b> "
         for tl, sl in zip(links, lstd[no]):
             if isinstance(sl, Exception):
                 prsd += str(sl)
@@ -168,5 +168,5 @@ async def tamilmv(url):
         parse_data += f'''
         
 {no}. <code>{filename}</code>
-┖ <b>Links :</b> <a href="https://t.me/share/url?url={m['href'].split('&')[0]}"><b>Magnet </b>🧲</a>  | <a href="{t['href']}"><b>Torrent 🌐</b></a>'''
+⇢ <b>Links :</b> <a href="https://t.me/share/url?url={m['href'].split('&')[0]}"><b>Magnet </b>🧲</a>  | <a href="{t['href']}"><b>Torrent 🌐</b></a>'''
     return parse_data
