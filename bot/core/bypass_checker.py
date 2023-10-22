@@ -2,12 +2,12 @@ from re import match
 from traceback import format_exc
 from urllib.parse import urlparse
 
-from FZBypass import LOGGER
-from FZBypass.core.bypass_dlinks import *
-from FZBypass.core.bypass_ddl import *
-from FZBypass.core.bypass_scrape import *
-from FZBypass.core.bot_utils import get_dl
-from FZBypass.core.exceptions import DDLException
+from bot import LOGGER
+from bot.core.bypass_dlinks import *
+from bot.core.bypass_ddl import *
+from bot.core.bypass_scrape import *
+from bot.core.bot_utils import get_dl
+from bot.core.exceptions import DDLException
 
 fmed_list = ['fembed.net', 'fembed.com', 'femax20.com', 'fcdn.stream', 'feurl.com', 'layarkacaxxi.icu',
              'naniplay.nanime.in', 'naniplay.nanime.biz', 'naniplay.com', 'mm9842.com']
