@@ -6,13 +6,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQue
 from pyrogram.enums import MessageEntityType
 from pyrogram.errors import QueryIdInvalid
 
-from bot import Config_dict, Bypass, LOGGER
+from bot import Config_dict, bot, LOGGER
 from bot.core.bypass_checker import direct_link_checker, is_excep_link
 from bot.core.bot_utils import chat_and_topics, convert_time
 from bot.core.exceptions import DDLException
 
-
-@Bypass.on_message(command(['bypass', 'bp']) & (user(Config.OWNER_ID) | chat_and_topics))
 async def bypass_check(client, message):
     uid = message.from_user.id
     if (reply_to := message.reply_to_message) and (reply_to.text is not None or reply_to.caption is not None):
@@ -133,7 +131,7 @@ async def inline_query(client, query):
                 ),
                 description="Bypass via !bp [link]",
                 reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton("FZ Channel", url="https://t.me/TomenBots"),
+                        [InlineKeyboardButton("Channel", url="https://t.me/TomenBots"),
                         InlineKeyboardButton('Try Bypass', switch_inline_query_current_chat="!bp ")]
                 ])
             ))
@@ -144,3 +142,7 @@ async def inline_query(client, query):
         )
     except QueryIdInvalid:
         pass
+
+
+bot.add_handler(MessageHandler(Bypass, filters=command(
+    BotCommands.BypassCommand) & CustomFilters.authorized & ~CustomFilters.blacklisted))
