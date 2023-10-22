@@ -41,12 +41,11 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'UPSTREAM_BRANCH': 'master',
                   'BOT_THEME': 'minimal',
                   'BOT_LANG': 'en',
-                  'CAPTION_FONT': 'code',
                   'IMG_PAGE': 1,
                   'AUTHOR_NAME': 'WZML-X',
-                  'AUTHOR_URL': 'https://t.me/WZML_X',
-                  'TITLE_NAME': 'WZ Mirror/Leech X',
-                  'GD_INFO': 'Uploaded by WZML-X',
+                  'AUTHOR_URL': 'https://t.me/TomenBots',
+                  'TITLE_NAME': 'TomenBots',
+                  'GD_INFO': 'TomenBots',
                   }
 bool_vars = ['AS_DOCUMENT', 'BOT_PM', 'STOP_DUPLICATE', 'SET_COMMANDS', 'SAVE_MSG', 'SHOW_MEDIAINFO', 'SOURCE_LINK', 'SAFE_MODE', 'SHOW_EXTRA_CMDS',
              'IS_TEAM_DRIVE', 'USE_SERVICE_ACCOUNTS', 'WEB_PINCODE', 'EQUAL_SPLITS', 'DISABLE_DRIVE_LINK', 'DELETE_LINKS', 'CLEAN_LOG_MSG', 'USER_TD_MODE', 
@@ -106,6 +105,13 @@ async def load_config():
         aid = AUTHORIZED_CHATS.split()
         for id_ in aid:
             user_data[int(id_.strip())] = {'is_auth': True}
+
+    AUTH_CHATS = environ.get('AUTH_CHATS', '')
+    if len(AUTH_CHATS) != 0:
+        aid = AUTH_CHATS.split()
+        for id_ in aid:
+            user_data[int(id_.strip())] = {'is_auth': True}
+
 
     SUDO_USERS = environ.get('SUDO_USERS', '')
     if len(SUDO_USERS) != 0:
@@ -189,9 +195,6 @@ async def load_config():
     if CAP_FONT.strip() not in ['', 'b', 'i', 'u', 's', 'spoiler', 'code']:
         CAP_FONT = 'code'
 
-      CAPTION_FONT = environ.get('CAPTION_FONT', '')
-    if len(CAPTION_FONT) == 0:  
-        CAPTION_FONT = 'code'
         
     LEECH_FILENAME_PREFIX = environ.get('LEECH_FILENAME_PREFIX', '')
     if len(LEECH_FILENAME_PREFIX) == 0:
@@ -610,7 +613,6 @@ async def load_config():
                         'BOT_TOKEN': BOT_TOKEN,
                         'BOT_MAX_TASKS': BOT_MAX_TASKS,
                         'CAP_FONT': CAP_FONT,
-                        'CAPTION_FONT': CAPTION_FONT,
                         'CMD_SUFFIX': CMD_SUFFIX,
                         'DATABASE_URL': DATABASE_URL,
                         'DEBRID_API_KEY': DEBRID_API_KEY,
