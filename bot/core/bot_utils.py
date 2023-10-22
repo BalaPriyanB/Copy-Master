@@ -2,7 +2,7 @@ from pyrogram.filters import create
 from re import search
 from requests import get as rget
 from urllib.parse import urlparse, parse_qs
-from FZBypass import Config
+from bot import config_dict
 
 async def auth_topic(_, __, message):
     for chat in Config.AUTH_CHATS:
