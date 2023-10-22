@@ -47,27 +47,27 @@ async def bypass_check(client, message):
     parse_data = []
     for result, link in zip(completed_tasks, tlinks):
         if isinstance(result, Exception):
-            bp_link = f"\n┖ <b>Bypass Error:</b> {result}"
+            bp_link = f"\n↦ <b>Bypass Error:</b> {result}"
         elif is_excep_link(link):
             bp_link = result
         elif isinstance(result, list):
-            bp_link, ui = "", "┖"
+            bp_link, ui = "", "↦"
             for ind, lplink in reversed(list(enumerate(result, start=1))):
                 bp_link = f"\n{ui} <b>{ind}x Bypass Link:</b> {lplink}" + bp_link
-                ui = "┠"
+                ui = "↦"
         else:
-            bp_link = f"\n┖ <b>Bypass Link:</b> {result}"
+            bp_link = f"\n↦<b>Bypass Link:</b> {result}"
     
         if is_excep_link(link):
-            parse_data.append(f"{bp_link}\n\n━━━━━━━✦✗✦━━━━━━━\n\n")
+            parse_data.append(f"{bp_link}\n\n\n\n")
         else:
-            parse_data.append(f'┎ <b>Source Link:</b> {link}{bp_link}\n\n━━━━━━━✦✗✦━━━━━━━\n\n')
+            parse_data.append(f'<b>Source Link:</b> {link}{bp_link}\n\n\n\n')
             
     end = time()
 
     if len(parse_data) != 0:
-        parse_data[-1] = parse_data[-1] + f"┎ <b>Total Links : {no}</b>\n┠ <b>Results In <code>{convert_time(end - start)}</code></b> !\n┖ <b>By </b>{message.from_user.mention} ( #ID{message.from_user.id} )"
-    tg_txt = "━━━━━━━✦✗✦━━━━━━━\n\n"
+        parse_data[-1] = parse_data[-1] + f"↦ <b>Total Links : {no}</b>\n↦ <b>Results In <code>{convert_time(end - start)}</code></b> !\n↦ <b>By </b>{message.from_user.mention} ( #ID{message.from_user.id} )"
+    tg_txt = "\n\n"
     for tg_data in parse_data:
         tg_txt += tg_data
         if len(tg_txt) > 4000:
@@ -93,7 +93,7 @@ async def inline_query(client, query):
             end = time()
             
             if not is_excep_link(link):
-                bp_link = f"┎ <b>Source Link:</b> {link}\n┃\n┖ <b>Bypass Link:</b> {bp_link}"
+                bp_link = f"↦ <b>Source Link:</b> {link}\n┃\n↦ <b>Bypass Link:</b> {bp_link}"
             answers.append(InlineQueryResultArticle(
                 title="✅️ Bypass Link Success !",
                 input_message_content=InputTextMessageContent(
@@ -112,7 +112,7 @@ async def inline_query(client, query):
             answers.append(InlineQueryResultArticle(
                 title="❌️ Bypass Link Error !",
                 input_message_content=InputTextMessageContent(
-                    f'┎ <b>Source Link:</b> {link}\n┃\n┖ {bp_link}\n\n✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏\n\n🧭 <b>Took Only <code>{convert_time(end - start)}</code></b>',
+                    f'┎ <b>Source Link:</b> {link}\n┃\n↦ {bp_link}\n\n✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏\n\n🧭 <b>Took Only <code>{convert_time(end - start)}</code></b>',
                     disable_web_page_preview=True,
                 ),
                 description=f"Bypass via !bp {link}",
