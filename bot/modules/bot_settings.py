@@ -149,6 +149,36 @@ async def load_config():
     INDEX_URL = environ.get('INDEX_URL', '').rstrip("/")
     if len(INDEX_URL) == 0:
         INDEX_URL = ''
+    LARAVEL_SESSION = environ.get('LARAVEL_SESSION', '')
+    if len(LARAVEL_SESSION) == 0:
+        LARAVEL_SESSION = ''
+
+    XSRF_TOKEN = environ.get('XSRF_TOKEN', '')
+    if len(XSRF_TOKEN) == 0:
+        XSRF_TOKEN = ''
+
+
+    DRIVEFIRE_CRYPT = environ.get('DRIVEFIRE_CRYPT', '')
+    if len(DRIVEFIRE_CRYPT) == 0:
+        DRIVEFIRE_CRYPT = ''
+
+    HUBDRIVE_CRYPT = environ.get('HUBDRIVE_CRYPT', '')
+    if len(HUBDRIVE_CRYPT) == 0:
+        HUBDRIVE_CRYPT = ''
+
+    KATDRIVE_CRYPT = environ.get('KATDRIVE_CRYPT', '')
+    if len(KATDRIVE_CRYPT) == 0:
+        KATDRIVE_CRYPT = ''
+
+    TERA_COOKIE = environ.get('TERA_COOKIE', '')
+    if len(TERA_COOKIE) == 0:
+        TERA_COOKIE = ''
+
+
+
+    DIRECT_INDEX = environ.get('DIRECT_INDEX', '').rstrip("/")
+    if len(DIRECT_INDEX) == 0:
+        DIRECT_INDEX = ''
 
     SEARCH_API_LINK = environ.get('SEARCH_API_LINK', '').rstrip("/")
     if len(SEARCH_API_LINK) == 0:
