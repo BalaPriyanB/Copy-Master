@@ -140,6 +140,7 @@ class WZMLStyle:
     SIZE =                  '↦ <b>Size: </b>{Size}\n'
     ELAPSE =                '↦ <b>Elapsed: </b>{Time}\n'
     MODE =                  '↦ <b>Mode: </b>{Mode}\n'
+    LINE =                  '−−−−−−−−≺@TomenBots≻\n'
 
     # ----- LEECH -------
     L_TOTAL_FILES =         '↦ <b>Total Files: </b>{Files}\n'
