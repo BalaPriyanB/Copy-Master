@@ -41,6 +41,7 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'UPSTREAM_BRANCH': 'master',
                   'BOT_THEME': 'minimal',
                   'BOT_LANG': 'en',
+                  'CAPTION_FONT': 'code',
                   'IMG_PAGE': 1,
                   'AUTHOR_NAME': 'WZML-X',
                   'AUTHOR_URL': 'https://t.me/WZML_X',
@@ -187,6 +188,10 @@ async def load_config():
     CAP_FONT = environ.get('CAP_FONT', '').lower()
     if CAP_FONT.strip() not in ['', 'b', 'i', 'u', 's', 'spoiler', 'code']:
         CAP_FONT = 'code'
+
+      CAPTION_FONT = environ.get('CAPTION_FONT', '')
+    if len(CAPTION_FONT) == 0:  
+        CAPTION_FONT = 'code'
         
     LEECH_FILENAME_PREFIX = environ.get('LEECH_FILENAME_PREFIX', '')
     if len(LEECH_FILENAME_PREFIX) == 0:
@@ -605,6 +610,7 @@ async def load_config():
                         'BOT_TOKEN': BOT_TOKEN,
                         'BOT_MAX_TASKS': BOT_MAX_TASKS,
                         'CAP_FONT': CAP_FONT,
+                        'CAPTION_FONT': CAPTION_FONT,
                         'CMD_SUFFIX': CMD_SUFFIX,
                         'DATABASE_URL': DATABASE_URL,
                         'DEBRID_API_KEY': DEBRID_API_KEY,
