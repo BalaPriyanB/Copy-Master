@@ -126,3 +126,10 @@ heroku logs
 - All files to be Uploaded in `main` Branch and set Upstream as `hk` Branch
 
 ---
+
+
+
+# **RAILWAY DEPLOY GUIDE**
+
+- Delete 'readme.md' and deploy The Deploy Banch Directly And Add Config It Railway Environment Variables
+- note You Are Using In Own Risk Don't Blame The Admin
