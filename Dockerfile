@@ -3,8 +3,8 @@ FROM mysterysd/wzmlx:heroku
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
+COPY summa.txt .
+RUN pip3 install --no-cache-dir -r summa.txt
 RUN apt -qq update --fix-missing && \
     apt -qq install -y mediainfo
 
