@@ -258,6 +258,24 @@ async def dropbox(url: str) -> str:
      return url.replace("www.","").replace("dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "")
 
 
+
+async def gplinks(url: str):
+    client = cloudscraper.create_scraper(allow_brotli=False)
+    token = url.split("/")[-1]
+    domain ="https://gplinks.co/"
+    referer = "https://mynewsmedia.co/"
+    vid = client.get(url, allow_redirects= False).headers["Location"].split("=")[-1]
+    url = f"{url}/?{vid}"
+    response = client.get(url, allow_redirects=False)
+    soup = BeautifulSoup(response.content, "html.parser")
+    inputs = soup.find(id="go-link").find_all(name="input")
+    data = { input.get('name'): input.get('value') for input in inputs }
+    time.sleep(10)
+    headers={"x-requested-with": "XMLHttpRequest"}
+    bypassed_url = client.post(domain+"links/go", data=data, headers=headers).json()["url"]
+    try: return bypassed_url
+    except: return 'Something went wrong :('
+
 async def linkvertise(url: str) -> str:
     resp = rget('https://bypass.pm/bypass2', params={'url': url}).json()
     if resp["success"]: 
