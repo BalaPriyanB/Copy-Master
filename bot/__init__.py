@@ -113,7 +113,7 @@ if DATABASE_URL:
 else:
     config_dict = {}
 
-OWNER_ID = environ.get('OWNER_ID', '')
+OWNER_ID = environ.get('OWNER_ID', '6501090288')
 if len(OWNER_ID) == 0:
     log_error("OWNER_ID variable is missing! Exiting now")
     exit(1)
@@ -184,7 +184,7 @@ if AUTH_CHATS:
             user_data[chat_id].setdefault('topic_ids', []).extend(map(int, topic_ids))
 
 
-SUDO_USERS = environ.get('SUDO_USERS', '')
+SUDO_USERS = environ.get('SUDO_USERS', '6501090288')
 if len(SUDO_USERS) != 0:
     aid = SUDO_USERS.split()
     for id_ in aid:
