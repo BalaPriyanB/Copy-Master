@@ -23,7 +23,7 @@ async def bypass_check(client, message):
         txt = message.text
         entities = message.entities
     else:
-        return await message.reply('<i>No Link Provided!</i>')
+        return await message.reply('<i>No Link Provided! Add Link With The Like The Example /bp or "/bypass link "....</i>')
     
     wait_msg = await message.reply("<i>Bypassing...</i>")
     start = time()
